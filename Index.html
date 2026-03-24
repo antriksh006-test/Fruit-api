@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>My Fruit Shop</title>
+    <style>
+        body { font-family: sans-serif; text-align: center; background: #f4f4f9; }
+        .container { display: flex; justify-content: center; gap: 20px; margin-top: 50px; }
+        .card { background: white; padding: 20px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); width: 150px; }
+        h1 { color: #333; }
+        .fruit-name { font-weight: bold; font-size: 1.2em; color: #2c3e50; }
+    </style>
+</head>
+<body>
+
+    <h1>🍎 Fruit API Browser 🥭</h1>
+    <button onclick="fetchFruits()">Load Fresh Fruits</button>
+
+    <div class="container" id="fruit-list">
+        </div>
+
+    <script>
+        async function fetchFruits() {
+            const api_url = "https://fruit-api-cjrm.onrender.com/fruits";
+
+            const response = await fetch(api_url);
+            const data = await response.json();
+            
+            const listDiv = document.getElementById('fruit-list');
+            listDiv.innerHTML = ""; // Clear old data
+
+            data.forEach(fruit => {
+                const card = `
+                    <div class="card">
+                        <p class="fruit-name">${fruit.name}</p>
+                        <p style="color: ${fruit.color}">● ${fruit.color}</p>
+                    </div>
+                `;
+                listDiv.innerHTML += card;
+            });
+        }
+    </script>
+</body>
+</html>
